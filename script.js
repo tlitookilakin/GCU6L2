@@ -27,8 +27,26 @@ function getAverageDiameter(items) {
     return sum / items.length;
 }
 
+function getLargestPlanet(items) {
+    let largest = null;
+    for (let item of items) {
+        if (!largest || item.size > largest.size)
+            largest = item;
+    }
+    return largest;
+}
+
 function getWrappingEnabled() {
     return document.getElementById("wrapEnabled").checked;
+}
+
+function populatePlanets(items) {
+    let list = document.getElementById("planetnames");
+    for (let item of items) {
+        let el = document.createElement("li");
+        el.innerText = item.name;
+        list.appendChild(el);
+    }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -47,6 +65,9 @@ document.addEventListener("DOMContentLoaded", () => {
     let avg = getAverageDiameter(planets);
     console.log(avg);
     
+    document.getElementById("avgdiam").innerText = `Average diameter: ${avg}`;
+    document.getElementById("largestdiam").innerText = `Largest planet: ${getLargestPlanet(planets).name}`;
+    populatePlanets(planets);
 
     let index = 0;
 
